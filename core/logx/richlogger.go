@@ -195,7 +195,9 @@ func (l *richLogger) WithFields(fields ...LogField) Logger {
 		return l
 	}
 
-	f := append(l.fields, fields...)
+	f := make([]LogField, 0, len(l.fields)+len(fields))
+	f = append(f, l.fields...)
+	f = append(f, fields...)
 
 	return &richLogger{
 		ctx:        l.ctx,
